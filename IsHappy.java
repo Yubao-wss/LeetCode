@@ -23,6 +23,7 @@ import java.util.HashSet;
 //HashSet+求和函数
 class Solution1 {
     public boolean isHappy(int n) {
+        
         int key = n;
         HashSet<Integer> hashSet = new HashSet<Integer>();
         while (key != 1){
@@ -45,7 +46,29 @@ class Solution1 {
             n = n/10;
         }
         return sum;
+        
     }
+}
+
+//根据已知规律，递归法
+class Solution2{
+    public boolean isHappy(int n){
+
+        int sum = 0;
+        while(n > 0){
+            sum += (n % 10)*(n % 10);
+            n = n / 10;
+        }
+        if(sum == 1){
+            return true;
+        }
+        if(sum == 4 || sum == 16 || sum == 37 || sum == 58 || sum == 89 || sum == 145 || sum == 42 || sum == 20 ){
+            return false;
+        }else {
+            return isHappy(sum);
+        }
+        
+    } 
 }
 public class IsHappy {
     public static void main(String[] args) {
@@ -57,5 +80,8 @@ public class IsHappy {
             不要被吓到，仔细思考就可以想到：非快乐数在不断的递归计算中的返回值必然会与之前的某个返回值相等，然后陷入死循环
             耐心研究就可以发现：所有不快乐数的数位平方和计算，最後都会进入 4 → 16 → 37 → 58 → 89 → 145 → 42 → 20 → 4 的循环中
         */
+        Solution2 solution2 = new Solution2();
+        System.out.println(solution2.isHappy(19));// 结果： true
+        System.out.println(solution2.isHappy(333));// 结果： false
     }
 }
